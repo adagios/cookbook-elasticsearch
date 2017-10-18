@@ -44,8 +44,9 @@ class ElasticsearchCookbook::ServiceProvider < Chef::Provider::LWRPBase
         only_if { ::File.exist?('/etc/init.d') }
         action :nothing
       end
-      init_r.run_action(:create)
-      new_resource.updated_by_last_action(true) if init_r.updated_by_last_action?
+      # JONE - disable creating unneeded init.d script to make it work in Fedora 23 (and 20?)
+      #init_r.run_action(:create)
+      #new_resource.updated_by_last_action(true) if init_r.updated_by_last_action?
     end
 
     if new_resource.systemd_source
